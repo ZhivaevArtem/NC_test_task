@@ -41,6 +41,7 @@ public class RootConfig {
         factoryBean.setDataSource(dataSource());
         Properties props = new Properties();
         props.setProperty("hibernate.show_sql", "true");
+        props.setProperty("hibernate.hbm2ddl.auto", "create-drop");
         factoryBean.setHibernateProperties(props);
         return factoryBean;
     }
