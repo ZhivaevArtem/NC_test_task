@@ -1,14 +1,14 @@
 package com.example.pets.config;
 
-import com.example.pets.models.Pet;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
@@ -16,6 +16,7 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
+@EnableJpaRepositories(basePackages = {"com.example.pets.repositories"})
 public class RootConfig {
 
     @Bean
@@ -32,6 +33,31 @@ public class RootConfig {
 
         ds.setDriverClassName("org.postgresql.Driver");
         return  ds;
+    }
+
+    @Bean
+    public HibernateJpaVendorAdapter jpaVendorAdapter() {
+        return new HibernateJpaVendorAdapter();
+    }
+
+    @Bean
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+        LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
+        emf.setDataSource(dataSource());
+        emf.setJpaVendorAdapter(jpaVendorAdapter());
+        emf.setPackagesToScan("com.example.pets.models");
+
+
+        return emf;
+    }
+
+    @Bean
+    public JpaTransactionManager transactionManager() {
+        JpaTransactionManager tm = new JpaTransactionManager();
+        LocalContainerEntityManagerFactoryBean emf = entityManagerFactory();
+        tm.setEntityManagerFactory(emf.getObject());
+
+        return tm;
     }
 
     @Bean
