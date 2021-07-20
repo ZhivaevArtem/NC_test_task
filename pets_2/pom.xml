@@ -12,6 +12,7 @@
 
     <properties>
         <spring.version>5.2.15.RELEASE</spring.version>
+        <java.version>11</java.version>
     </properties>
 
     <dependencies>
@@ -64,7 +65,7 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.2.23.jre7</version>
+            <version>42.2.23</version>
         </dependency>
 
 
