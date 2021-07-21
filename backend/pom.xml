@@ -19,6 +19,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <spring.version>5.2.15.RELEASE</spring.version>
+        <spring.security.version>5.3.10.RELEASE</spring.security.version>
         <slf4j.version>1.7.5</slf4j.version>
         <hibernate.version>5.5.3.Final</hibernate.version>
     </properties>
@@ -57,6 +58,29 @@
             <!--Newer version not working-->
             <version>2.3.9.RELEASE</version>
         </dependency>
+        <!-- region org.springframework.security -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-oauth2-client</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-oauth2-jose</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+        <!-- endregion org.springframework.security -->
+
 
         <!-- region org.hibernate -->
         <dependency>

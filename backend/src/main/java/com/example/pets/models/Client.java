@@ -17,6 +17,7 @@ public class Client {
     private String address = "";
     private String phone = "";
     private String email = "";
+    private String password = "";
 
     // region private methods
     private boolean validatePhone(String phone) {
@@ -45,7 +46,7 @@ public class Client {
         this.phone = phone;
         this.email = email;
     }
-// endregion constructors
+    // endregion constructors
 
     // region getters and setters
     public String getId() {
@@ -114,5 +115,12 @@ public class Client {
             this.email = email;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
     // endregion getters and setters
 }

@@ -24,7 +24,7 @@ import java.util.Properties;
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = {"com.example.pets.repositories"})
 @PropertySource(value = "classpath:/persistence.properties")
-public class RootConfig {
+public class PersistenceConfig {
 
     @Value("${datasource.username}")
     private String username;
@@ -34,6 +34,16 @@ public class RootConfig {
     private String url;
     @Value("${datasource.driver_path}")
     private String driverPath;
+
+    private Properties filterProperties(Properties properties, String prefix) {
+        Properties props = new Properties();
+        properties.stringPropertyNames().forEach(s -> {
+            if (s.startsWith(prefix)) {
+                props.put(s, properties.getProperty(s));
+            }
+        });
+        return props;
+    }
 
     @Bean
     public JdbcTemplate jdbcTemplate() {
@@ -91,15 +101,5 @@ public class RootConfig {
         }
 
         return factoryBean;
-    }
-
-    private Properties filterProperties(Properties properties, String prefix) {
-        Properties props = new Properties();
-        properties.stringPropertyNames().forEach(s -> {
-            if (s.startsWith(prefix)) {
-                props.put(s, properties.getProperty(s));
-            }
-        });
-        return props;
     }
 }
