@@ -46,4 +46,12 @@ public class AuthService {
         }
         return Optional.empty();
     }
+
+    public Optional<AuthResponse> signIn(String login) {
+        Optional<Client> user = clientRepository.findByEmail(login);
+        if (user.isPresent()) {
+            return Optional.of(new AuthResponse(user.get(), ""));
+        }
+        return Optional.empty();
+    }
 }

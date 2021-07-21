@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.Optional;
 
 @RestController
@@ -29,12 +30,11 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/sign_in")
-    public ResponseEntity<AuthResponse> signIn(@RequestParam String login,
-                                               @RequestParam String password) {
-        Optional<AuthResponse> authResponse = authService.signIn(login, password);
+    @GetMapping("/sign_in")
+    public ResponseEntity<AuthResponse> signIn(Principal principal) {
+        Optional<AuthResponse> authResponse = authService.signIn(principal.getName());
         if (authResponse.isPresent()) {
-            return new ResponseEntity<>(authResponse.get(), HttpStatus.CREATED);
+            return new ResponseEntity<>(authResponse.get(), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
