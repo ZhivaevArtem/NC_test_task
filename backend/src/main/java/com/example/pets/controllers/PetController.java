@@ -13,16 +13,14 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/pet",
-    produces = "application/json",
-    consumes = "application/json")
+    produces = "application/json")
 @CrossOrigin("http://localhost:4200")
 public class PetController {
 
     @Autowired
-    @Qualifier("petServiceJpaImpl")
     public PetService petService;
 
-    // region: CRUD
+    // region CRUD
     @PostMapping
     public ResponseEntity<Pet> create(@RequestBody Pet pet) {
         Optional<Pet> opt = petService.create(pet);
@@ -67,5 +65,5 @@ public class PetController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    // endregion: CRUD
+    // endregion CRUD
 }

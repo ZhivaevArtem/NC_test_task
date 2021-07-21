@@ -1,51 +1,48 @@
 package com.example.pets.models;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Date;
 import java.util.UUID;
 
 @Entity
-@Table(name = "_pet")
 public class Pet {
     @Id
-    private String id = new UUID(0L, 0L).toString();
-    private String type = "";
+    private String id = "";
     private String name = "";
+    @Enumerated(EnumType.STRING)
+    private Sex sex = Sex.UNKNOWN;
+    private Date birth = new Date();
+    private String breed = "";
+    private String color = "";
+    private String description = "";
+    private String animalType = "";
+    private String ownerId = "";
 
-    // region: constructors
-    public Pet() {}
+    // region constructors
+    public Pet() {
+    }
 
-    public Pet(String id, String type, String name) {
+    public Pet(String id, String name, Sex sex, Date birth,
+               String breed, String color, String description, String animalType, String ownerId) {
         this.id = id;
-        this.type = type;
         this.name = name;
+        this.sex = sex;
+        this.birth = birth;
+        this.breed = breed;
+        this.color = color;
+        this.description = description;
+        this.animalType = animalType;
+        this.ownerId = ownerId;
     }
+    // endregion constructors
 
-//    public Pet(String id, String type, String name) {
-//        this(UUID.fromString(id), type, name);
-//    }
-
-    public Pet(String type, String name) {
-        this(new UUID(0L, 0L).toString(), type, name);
-    }
-    // endregion: constructors
-
-    // region: getters and setters
+    // region getters and setters
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public String getName() {
@@ -55,5 +52,61 @@ public class Pet {
     public void setName(String name) {
         this.name = name;
     }
-    // endregion: getters and setters
+
+    public Sex getSex() {
+        return sex;
+    }
+
+    public void setSex(Sex sex) {
+        this.sex = sex;
+    }
+
+    public Date getBirth() {
+        return birth;
+    }
+
+    public void setBirth(Date birth) {
+        this.birth = birth;
+    }
+
+    public String getBreed() {
+        return breed;
+    }
+
+    public void setBreed(String breed) {
+        this.breed = breed;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getAnimalType() {
+        return animalType;
+    }
+
+    public void setAnimalType(String animalType) {
+        this.animalType = animalType;
+    }
+
+    public String getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
+    }
+    // endregion getters and setters
 }
