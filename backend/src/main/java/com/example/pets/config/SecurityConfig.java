@@ -1,6 +1,5 @@
 package com.example.pets.config;
 
-import com.example.pets.security.AuthProviderImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -10,7 +9,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,9 +17,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 @ComponentScan(basePackages = {"com.example.pets.security"})
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-    @Autowired
-    private AuthProviderImpl authProvider;
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -39,7 +34,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
-            .authenticationProvider(authProvider)
             .userDetailsService(userDetailsService)
             .passwordEncoder(passwordEncoder());
     }
