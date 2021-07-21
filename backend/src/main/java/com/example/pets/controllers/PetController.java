@@ -3,25 +3,24 @@ package com.example.pets.controllers;
 import com.example.pets.models.Pet;
 import com.example.pets.services.PetService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
-@Controller
-@RequestMapping("/pet")
+@RestController
+@RequestMapping(value = "/pet",
+    produces = "application/json",
+    consumes = "application/json")
 @CrossOrigin("http://localhost:4200")
 public class PetController {
 
-    private final PetService petService;
-
     @Autowired
-    public PetController(PetService petService) {
-        this.petService = petService;
-    }
+    @Qualifier("petServiceJpaImpl")
+    public PetService petService;
 
     // region: CRUD
     @PostMapping
@@ -36,7 +35,7 @@ public class PetController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Pet> read(@PathVariable("id") String id) {
-        Optional<Pet> opt = petService.get(id);
+        Optional<Pet> opt = petService.read(id);
         if (opt.isPresent()) {
             return new ResponseEntity<>(opt.get(), HttpStatus.OK);
         } else {
@@ -46,7 +45,7 @@ public class PetController {
 
     @GetMapping
     public ResponseEntity<List<Pet>> readAll() {
-        return new ResponseEntity<>(petService.getAll(), HttpStatus.OK);
+        return new ResponseEntity<>(petService.readAll(), HttpStatus.OK);
     }
 
     @PutMapping

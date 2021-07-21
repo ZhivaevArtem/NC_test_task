@@ -2,21 +2,21 @@ package com.example.pets.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-public class ApplicationConfigDispatcherServletInitializer
+public class ConfigDispatcherServletInitializer
     extends AbstractAnnotationConfigDispatcherServletInitializer {
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return null;
+        return new Class[] { RootConfig.class };
     }
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class[]{SpringConfig.class};
+        return new Class[] { ServletConfig.class };
     }
 
     @Override
     protected String[] getServletMappings() {
-        return new String[]{"/"};
+        return new String[] { "/" };
     }
 }

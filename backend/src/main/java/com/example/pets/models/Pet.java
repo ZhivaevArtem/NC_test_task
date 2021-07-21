@@ -1,36 +1,42 @@
 package com.example.pets.models;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.UUID;
 
+@Entity
+@Table(name = "_pet")
 public class Pet {
-    private UUID id = UUID.randomUUID();
+    @Id
+    private String id = new UUID(0L, 0L).toString();
     private String type = "";
     private String name = "";
 
     // region: constructors
     public Pet() {}
 
-    public Pet(UUID id, String type, String name) {
+    public Pet(String id, String type, String name) {
         this.id = id;
         this.type = type;
         this.name = name;
     }
 
-    public Pet(String id, String type, String name) {
-        this(UUID.fromString(id), type, name);
-    }
+//    public Pet(String id, String type, String name) {
+//        this(UUID.fromString(id), type, name);
+//    }
 
     public Pet(String type, String name) {
-        this(UUID.randomUUID(), type, name);
+        this(new UUID(0L, 0L).toString(), type, name);
     }
     // endregion: constructors
 
     // region: getters and setters
-    public UUID getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(String id) {
         this.id = id;
     }
 
