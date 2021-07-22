@@ -1,0 +1,21 @@
+<p>sign-up works!</p>
+<div>
+  <label for="name">
+    Name:
+    <input [(ngModel)]="user.name" type="text" id="name">
+  </label><br>
+  <label for="email">
+    Email:
+    <input [(ngModel)]="user.email" type="email" id="email">
+  </label><br>
+  <label for="password">
+    Password:
+    <input [(ngModel)]="user.password" type="password" id="password">
+  </label><br>
+  <label for="birth">
+    Birth:
+    <input [(ngModel)]="user.birth" type="text" id="birth">
+  </label><br>
+
+  <button (click)="signUp()" type="button">Sign up</button>
+</div>
