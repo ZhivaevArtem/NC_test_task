@@ -30,13 +30,24 @@ public class AuthController {
         }
     }
 
-    @GetMapping("/sign_in")
-    public ResponseEntity<AuthResponse> signIn(Principal principal) {
+    @PostMapping("/sign_in")
+    public ResponseEntity<AuthResponse> signIn(@RequestParam String email,
+                                               @RequestParam String password) {
+        Optional<AuthResponse> authResponse = authService.signIn(email, password);
+        if (authResponse.isPresent()) {
+            return new ResponseEntity<>(authResponse.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+    @GetMapping("/user_info")
+    public ResponseEntity<AuthResponse> userInfo(Principal principal) {
         Optional<AuthResponse> authResponse = authService.signIn(principal.getName());
         if (authResponse.isPresent()) {
             return new ResponseEntity<>(authResponse.get(), HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
     }
 }

@@ -21,14 +21,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private ClientRepository clientRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        Optional<Client> userOpt = clientRepository.findByEmail(login);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Optional<Client> userOpt = clientRepository.findByEmail(email);
         if (userOpt.isPresent()) {
             Client user = userOpt.get();
             List<GrantedAuthority> authorities = new ArrayList<>();
             return new User(user.getEmail(), user.getPassword(), authorities);
         } else {
-            throw new UsernameNotFoundException("User with e-mail `" + login + "` not found");
+            throw new UsernameNotFoundException("User with e-mail `" + email + "` not found");
         }
     }
 }

@@ -37,8 +37,8 @@ public class AuthService {
         );
     }
 
-    public Optional<AuthResponse> signIn(String login, String password) {
-        Optional<Client> user = clientRepository.findByEmail(login);
+    public Optional<AuthResponse> signIn(String email, String password) {
+        Optional<Client> user = clientRepository.findByEmail(email);
         if (user.isPresent()) {
             if (passwordEncoder.matches(user.get().getPassword(), password)) {
                 return Optional.of(new AuthResponse(user.get(), ""));
@@ -47,8 +47,8 @@ public class AuthService {
         return Optional.empty();
     }
 
-    public Optional<AuthResponse> signIn(String login) {
-        Optional<Client> user = clientRepository.findByEmail(login);
+    public Optional<AuthResponse> signIn(String email) {
+        Optional<Client> user = clientRepository.findByEmail(email);
         if (user.isPresent()) {
             return Optional.of(new AuthResponse(user.get(), ""));
         }

@@ -1,23 +1,31 @@
 package com.example.pets.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class AuthResponse {
     private Client user;
-    private String authorizeHeader;
+    private List<String> roleList;
 
     public AuthResponse() {
     }
 
-    public AuthResponse(Client user, String authorizeHeader) {
+    public AuthResponse(Client user, List<String> roleList) {
         this.user = user;
-        this.authorizeHeader = authorizeHeader;
+        this.roleList = roleList;
     }
 
-    public String getAuthorizeHeader() {
-        return authorizeHeader;
+    public AuthResponse(Client user) {
+        this.user = user;
+        this.roleList = new ArrayList<>();
     }
 
-    public void setAuthorizeHeader(String authorizeHeader) {
-        this.authorizeHeader = authorizeHeader;
+    public List<String> getRoleList() {
+        return roleList;
+    }
+
+    public void setRoleList(List<String> roleList) {
+        this.roleList = roleList;
     }
 
     public Client getUser() {
