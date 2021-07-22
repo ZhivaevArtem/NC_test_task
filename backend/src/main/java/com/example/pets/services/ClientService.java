@@ -82,8 +82,8 @@ public class ClientService {
         Client client = clientOpt.get();
         if (!client.getId().equals(pet.getOwnerId()))
             return Optional.empty();
-        pet.setOwnerId("");
-        return Optional.ofNullable(petRepository.save(pet));
+        petRepository.deleteById(pet.getId());
+        return Optional.of(pet);
     }
 
     public Optional<Pet> editPetByOwner(String clientId, Pet pet) {
@@ -96,6 +96,37 @@ public class ClientService {
         if (!client.getId().equals(petOpt.get().getOwnerId()))
             return Optional.empty();
         pet.setOwnerId(client.getId());
+        return Optional.ofNullable(petRepository.save(pet));
+    }
+
+    public Optional<List<Pet>> readClientsPets(String id) {
+        if (clientRepository.existsById(id)) {
+            return Optional.of(petRepository.findAllByOwnerId(id));
+        }
+        return Optional.empty();
+    }
+
+    public Optional<Pet> createAndAddPet(String id, Pet pet) {
+        if (!clientRepository.existsById(id))
+            return Optional.empty();
+        pet.setId(UUID.randomUUID().toString());
+        pet.setOwnerId(id);
+        return Optional.ofNullable(petRepository.save(pet));
+    }
+
+    public Optional<Pet> updateClientsPet(String clientId, String petId, Pet pet) {
+        Optional<Pet> petOpt = petRepository.findById(petId);
+        Optional<Client> clientOpt = clientRepository.findById(clientId);
+        if (petOpt.isEmpty() || clientOpt.isEmpty()) {
+            return Optional.empty();
+        }
+        Pet existingPet = petOpt.get();
+        Client client = clientOpt.get();
+        if (!existingPet.getOwnerId().equals(clientId)) {
+            return Optional.empty();
+        }
+        pet.setId(petId);
+        pet.setOwnerId(clientId);
         return Optional.ofNullable(petRepository.save(pet));
     }
 }

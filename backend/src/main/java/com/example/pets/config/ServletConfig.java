@@ -7,6 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -16,5 +17,6 @@ import javax.sql.DataSource;
 @Configuration
 @ComponentScan("com.example.pets")
 @EnableWebMvc
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class ServletConfig implements WebMvcConfigurer {
 }

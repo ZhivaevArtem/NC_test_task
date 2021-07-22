@@ -1,12 +1,17 @@
 package com.example.pets.controllers;
 
 import com.example.pets.models.Client;
+import com.example.pets.models.Pet;
 import com.example.pets.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +33,7 @@ public class ClientController {
         }
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{clientId}")
     public ResponseEntity<Client> read(@PathVariable String id) {
         Optional<Client> c = clientService.read(id);
         if (c.isPresent()) {
@@ -53,7 +58,7 @@ public class ClientController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{clientId}")
     public ResponseEntity<Client> delete(@PathVariable String id) {
         Optional<Client> c = clientService.delete(id);
         if (c.isPresent()) {
@@ -63,4 +68,52 @@ public class ClientController {
         }
     }
     // endregion CRUD
+
+    @RequestMapping(value = "/{clientId}/pet", method = RequestMethod.GET)
+    @PreAuthorize("@authComponent.checkUserIdAndEmail(#clientId, authentication.name)")
+    public ResponseEntity<List<Pet>> readClientsPets(@PathVariable String clientId) {
+        Optional<List<Pet>> petsOpt = clientService.readClientsPets(clientId);
+        if (petsOpt.isPresent()) {
+            return ResponseEntity.ok(petsOpt.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PostMapping("/{clientId}/pet")
+    public ResponseEntity<Pet> createAndAddPet(@PathVariable String clientId,
+                                               @RequestBody Pet pet,
+                                               Principal principal) {
+        Optional<Pet> addedPet = clientService.createAndAddPet(clientId, pet);
+        if (addedPet.isPresent()) {
+            return ResponseEntity.ok(addedPet.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("/{clientId}/pet/{petId}")
+    public ResponseEntity<Pet> removeClientsPet(@PathVariable String clientId,
+                                                @PathVariable String petId,
+                                                Principal principal) {
+        Optional<Pet> removedPet = clientService.removePetFromOwner(clientId, petId);
+        if (removedPet.isPresent()) {
+            return ResponseEntity.ok(removedPet.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PutMapping("/{clientId}/pet/{petId}")
+    public ResponseEntity<Pet> updateClientsPet(@PathVariable String clientId,
+                                                @PathVariable String petId,
+                                                @RequestBody Pet pet,
+                                                Principal principal) {
+        Optional<Pet> updatedPet = clientService.updateClientsPet(clientId, petId, pet);
+        if (updatedPet.isPresent()) {
+            return ResponseEntity.ok(updatedPet.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
