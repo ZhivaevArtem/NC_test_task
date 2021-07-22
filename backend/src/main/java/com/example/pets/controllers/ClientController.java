@@ -12,7 +12,6 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/client", produces = "application/json")
-@CrossOrigin("http://localhost:4200")
 public class ClientController {
 
     @Autowired

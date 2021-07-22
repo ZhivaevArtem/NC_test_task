@@ -12,9 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/pet",
-    produces = "application/json")
-@CrossOrigin("http://localhost:4200")
+@RequestMapping(value = "/pet", produces = "application/json")
 public class PetController {
 
     @Autowired

@@ -12,9 +12,7 @@ import java.security.Principal;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/auth",
-    produces = "application/json")
-@CrossOrigin("http://localhost:4200")
+@RequestMapping(value = "/auth", produces = "application/json")
 public class AuthController {
 
     @Autowired
