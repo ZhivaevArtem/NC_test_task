@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/client", produces = "application/json")
+@RequestMapping(value = "/api/v1/client", produces = "application/json")
 public class ClientController {
 
     @Autowired
@@ -34,8 +34,8 @@ public class ClientController {
     }
 
     @GetMapping("/{clientId}")
-    public ResponseEntity<Client> read(@PathVariable String id) {
-        Optional<Client> c = clientService.read(id);
+    public ResponseEntity<Client> read(@PathVariable String clientId) {
+        Optional<Client> c = clientService.read(clientId);
         if (c.isPresent()) {
             return new ResponseEntity<>(c.get(), HttpStatus.OK);
         } else {
@@ -59,8 +59,8 @@ public class ClientController {
     }
 
     @DeleteMapping("/{clientId}")
-    public ResponseEntity<Client> delete(@PathVariable String id) {
-        Optional<Client> c = clientService.delete(id);
+    public ResponseEntity<Client> delete(@PathVariable String clientId) {
+        Optional<Client> c = clientService.delete(clientId);
         if (c.isPresent()) {
             return new ResponseEntity<>(c.get(), HttpStatus.OK);
         } else {

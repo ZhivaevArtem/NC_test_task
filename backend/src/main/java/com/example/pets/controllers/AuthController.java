@@ -2,6 +2,7 @@ package com.example.pets.controllers;
 
 import com.example.pets.models.AuthResponse;
 import com.example.pets.models.Client;
+import com.example.pets.models.Credentials;
 import com.example.pets.services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,7 +13,7 @@ import java.security.Principal;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/auth", produces = "application/json")
+@RequestMapping(value = "/api/v1/auth", produces = "application/json")
 public class AuthController {
 
     @Autowired
@@ -29,9 +30,8 @@ public class AuthController {
     }
 
     @PostMapping("/sign_in")
-    public ResponseEntity<AuthResponse> signIn(@RequestParam String email,
-                                               @RequestParam String password) {
-        Optional<AuthResponse> authResponse = authService.signIn(email, password);
+    public ResponseEntity<AuthResponse> signIn(@RequestBody Credentials credentials) {
+        Optional<AuthResponse> authResponse = authService.signIn(credentials.getEmail(), credentials.getPassword());
         if (authResponse.isPresent()) {
             return new ResponseEntity<>(authResponse.get(), HttpStatus.OK);
         } else {

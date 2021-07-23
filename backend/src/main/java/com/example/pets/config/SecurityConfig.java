@@ -28,7 +28,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private UserDetailsService userDetailsService;
 
     @Bean
-    public CorsConfigurationSource corsConfigurationSource() {        CorsConfiguration configuration = new CorsConfiguration();
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200", "http://localhost:4201",
             "http://127.0.0.1:4200", "http://127.0.0.1:4201"));
         configuration.addAllowedHeader("*");
@@ -43,7 +44,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
             .authorizeRequests()
-            .antMatchers(HttpMethod.POST, "/auth/sign_up").anonymous()
+            .antMatchers(HttpMethod.POST, "/api/v1/auth/sign_up", "/api/v1/auth/sign_in").permitAll()
+            .antMatchers("/api/v1/client/{clientId}/**").authenticated()
             .anyRequest().hasRole("ADMIN")
             .and().httpBasic();
     }
@@ -57,8 +59,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//        return new StandardPasswordEncoder();
         return new PasswordEncoder() {
             @Override
             public String encode(CharSequence charSequence) {

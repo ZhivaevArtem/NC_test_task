@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/pet", produces = "application/json")
+@RequestMapping(value = "/api/v1/pet", produces = "application/json")
 public class PetController {
 
     @Autowired
