@@ -1,28 +1,30 @@
 import { Component, OnInit } from '@angular/core';
 import {Client} from "../../models/client";
 import {AuthService} from "../../services/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-sign-up',
-  templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.less']
+  templateUrl: './sign-up-page.component.html',
+  styleUrls: ['./sign-up-page.component.less']
 })
-export class SignUpComponent implements OnInit {
+export class SignUpPageComponent implements OnInit {
 
   public user: Client = {
-    id: "", name: "", surname: "", patronymic: "",
-    email: "", phone: "", password: "",
-    birth: new Date(), address: ""
+    id: "", name: "Artem", surname: "Zhivaev", patronymic: "Evgenievich",
+    email: "zhivaev993@gmail.com", phone: "+79200237099", password: "123",
+    birth: new Date(), address: "asdfasdf"
   };
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService,
+              private router: Router) { }
 
   ngOnInit(): void {
   }
 
   public signUp(): void {
     this.authService.signUp(this.user).subscribe(authResponse => {
-      console.log("Success " + localStorage.getItem("NC_auth_header"));
+      this.router.navigate(["/"]);
     });
   }
 }

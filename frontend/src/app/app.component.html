@@ -1,6 +1,11 @@
-<p>HHHhhheeellllooooo!!!!!</p>
+<nav class="clearfix">
+<!--  <a routerLink="home" routerLinkActive="active" class="left">Home</a>-->
 
-<button (click)="getPets()">asdfasdf</button>
-<button (click)="clearLocalStorage()">clear ls</button>
-<!--<app-home></app-home>-->
+  <a *ngIf="!authService.isAuth" routerLink="sign_in" routerLinkActive="active" class="right">Log In</a>
+  <a *ngIf="!authService.isAuth" routerLink="sign_up" routerLinkActive="active" class="right">Sign Up</a>
+
+  <button *ngIf="authService.isAuth" (click)="signOut()" class="right pointer">Log Out</button>
+<!--  <a *ngIf="authService.isAuth" routerLink="personal" routerLinkActive="active" class="right">Personal</a>-->
+</nav>
+
 <router-outlet></router-outlet>

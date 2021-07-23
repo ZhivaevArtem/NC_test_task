@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Pet} from "./models/pet";
+import {AuthService} from "./services/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -8,18 +10,13 @@ import {Pet} from "./models/pet";
   styleUrls: ['./app.component.less']
 })
 export class AppComponent {
-  title = 'frontend';
 
-  constructor(private httpClient: HttpClient) {
+  constructor(public authService: AuthService,
+              private router: Router) {
   }
 
-  getPets() {
-    this.httpClient.get<Pet[]>("http://localhost:8080/pet").subscribe(pets => {
-      console.log(pets);
-    });
-  }
-
-  clearLocalStorage() {
-    localStorage.removeItem("NC_auth_header");
+  public signOut(): void {
+    this.authService.signOut();
+    this.router.navigate(["sign_in"]);
   }
 }
