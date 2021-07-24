@@ -51,4 +51,8 @@ export class AuthService implements OnInit {
     localStorage.removeItem("NC_auth_header");
     this.isAuth = false;
   }
+
+  public isEmailTaken(email: string): Observable<boolean> {
+    return this.httpClient.get<boolean>(`${environment.apiUrl}/auth/is_email_taken?email=${email}`);
+  }
 }

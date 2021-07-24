@@ -1,15 +1,12 @@
-<input [(ngModel)]="user.name" placeholder="First name" type="text">
-<input [(ngModel)]="user.surname" placeholder="Last name" type="text">
-<input [(ngModel)]="user.patronymic" placeholder="Third name" type="text">
-<input [(ngModel)]="user.email" placeholder="Email" type="email">
-<input [(ngModel)]="user.password" placeholder="Password" type="password">
-<input [(ngModel)]="user.birth" placeholder="Birth" type="date">
-<input [(ngModel)]="user.phone" placeholder="Phone" type="text">
-<input [(ngModel)]="user.address" placeholder="Address" type="text">
+<form (ngSubmit)="signUp()" [formGroup]="signUpFormGroup">
+  <input [(ngModel)]="user.name" formControlName="name" placeholder="First name" type="text">
+  <input [(ngModel)]="user.surname" formControlName="surname" placeholder="Last name" type="text">
+  <input [(ngModel)]="user.patronymic" [ngModelOptions]="{standalone: true}" placeholder="Third name" type="text">
+  <input [(ngModel)]="user.email" formControlName="email" (focusout)="updateIsEmailTaken()" placeholder="Email" type="email">
+  <input [(ngModel)]="user.password" formControlName="password" placeholder="Password" type="password">
+  <input [(ngModel)]="user.birth" [ngModelOptions]="{standalone: true}" placeholder="Birth" type="date">
+  <input [(ngModel)]="user.phone" formControlName="phone" placeholder="Phone" type="text">
+  <input [(ngModel)]="user.address" [ngModelOptions]="{standalone: true}" placeholder="Address" type="text">
 
-
-<!--<input [(ngModel)]="email" [class.error]="emailStatus === 'error'" placeholder="email" type="email">-->
-<!--<input [(ngModel)]="password" [class.error]="passwordStatus === 'error'" placeholder="password" type="password">-->
-<!--<input [(ngModel)]="firstName" placeholder="first name" type="text">-->
-<!--<input [(ngModel)]="lastName" placeholder="last name" type="text">-->
-<button (click)="signUp()">Sign up</button>
+  <button [disabled]="buttonDisableState" type="submit" (click)="signUp()">Sign up</button>
+</form>

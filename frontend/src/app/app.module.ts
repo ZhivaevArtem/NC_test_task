@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { SignUpPageComponent } from './components/sign-up-page/sign-up-page.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {AuthHeaderInterceptor} from "./interceptors/auth-header.interceptor";
 import { SignInPageComponent } from './components/sign-in-page/sign-in-page.component';
 import { PetCardComponent } from './components/pet-card/pet-card.component';
@@ -23,6 +23,7 @@ import { UserPageComponent } from './components/user-page/user-page.component';
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+    ReactiveFormsModule,
     FormsModule
   ],
   providers: [{
