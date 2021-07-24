@@ -1,12 +1,35 @@
 <form (ngSubmit)="signUp()" [formGroup]="signUpFormGroup">
-  <input [(ngModel)]="user.name" formControlName="name" placeholder="First name" type="text">
-  <input [(ngModel)]="user.surname" formControlName="surname" placeholder="Last name" type="text">
-  <input [(ngModel)]="user.patronymic" [ngModelOptions]="{standalone: true}" placeholder="Third name" type="text">
-  <input [(ngModel)]="user.email" formControlName="email" (focusout)="updateIsEmailTaken()" placeholder="Email" type="email">
-  <input [(ngModel)]="user.password" formControlName="password" placeholder="Password" type="password">
-  <input [(ngModel)]="user.birth" [ngModelOptions]="{standalone: true}" placeholder="Birth" type="date">
-  <input [(ngModel)]="user.phone" formControlName="phone" placeholder="Phone" type="text">
-  <input [(ngModel)]="user.address" [ngModelOptions]="{standalone: true}" placeholder="Address" type="text">
-
-  <button [disabled]="buttonDisableState" type="submit" (click)="signUp()">Sign up</button>
+  <label class="required">
+    First name
+    <input [(ngModel)]="user.name" formControlName="name" placeholder="First name" type="text">
+  </label>
+  <label class="required">
+    Surname
+    <input [(ngModel)]="user.surname" formControlName="surname" placeholder="Last name" type="text">
+  </label>
+  <label>
+    Patronymic
+    <input [(ngModel)]="user.patronymic" [ngModelOptions]="{standalone: true}" placeholder="Third name" type="text">
+  </label>
+  <label class="required">
+    Email
+    <input [(ngModel)]="user.email" formControlName="email" (focusout)="updateIsEmailTaken()" placeholder="Email" type="email">
+  </label>
+  <label class="required">
+    Password
+    <input [(ngModel)]="user.password" formControlName="password" placeholder="Password" type="password">
+  </label>
+  <label>
+    Birth
+    <input [(ngModel)]="user.birth" [ngModelOptions]="{standalone: true}" placeholder="Birth" type="date">
+  </label>
+  <label class="required">
+    Phone
+    <input [(ngModel)]="user.phone" formControlName="phone" placeholder="Phone" type="text">
+  </label>
+  <label>
+    Address
+    <input [(ngModel)]="user.address" [ngModelOptions]="{standalone: true}" placeholder="Address" type="text">
+  </label>
+  <button [disabled]="buttonDisableState" type="submit">Sign up</button>
 </form>

@@ -2,17 +2,30 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Route, Router} from "@angular/router";
 import {AuthService} from "../../services/auth.service";
 import {Credentials} from "../../models/credentials";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in-page.component.html',
   styleUrls: ['./sign-in-page.component.less']
 })
-export class SignInPageComponent implements OnInit {
+export class  SignInPageComponent implements OnInit {
+
+  public buttonDisabledState = false;
 
   public credentials: Credentials = {
     email: "", password: ""
   };
+  public signInFormGroup = new FormGroup({
+    'email': new FormControl('', [
+      Validators.required,
+      Validators.email
+    ]),
+    'password': new FormControl('', [
+      Validators.required,
+      Validators.minLength(3)
+    ])
+  });
 
   constructor(private authService: AuthService,
               private router: Router) { }
@@ -21,9 +34,16 @@ export class SignInPageComponent implements OnInit {
   }
 
   public signIn(): void {
-    this.authService.signIn(this.credentials)
-      .subscribe(authResponse => {
-        this.router.navigate([""]);
-      });
+    if (this.signInFormGroup.valid) {
+      this.buttonDisabledState = true;
+      this.authService.signIn(this.credentials)
+        .subscribe(authResponse => {
+          this.router.navigate([""]);
+        }, error => {
+          this.buttonDisabledState = false;
+          this.credentials.password = "";
+          this.credentials.email = "";
+        });
+    }
   }
 }

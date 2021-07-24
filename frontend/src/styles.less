@@ -68,6 +68,11 @@
   text-decoration: underline;
 }
 
+&.required::before {
+  content: " *" !important;
+  color: red !important;
+}
+
 html {
   font-family: sans-serif;
 }

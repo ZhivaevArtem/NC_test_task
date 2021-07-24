@@ -46,7 +46,6 @@ export class SignUpPageComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
-    this.signUpFormGroup.markAsUntouched();
   }
 
   public signUp(): void {
