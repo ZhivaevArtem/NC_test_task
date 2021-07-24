@@ -54,4 +54,8 @@ public class AuthService {
         }
         return Optional.empty();
     }
+
+    public boolean isEmailTaken(String email) {
+        return clientRepository.existsByEmail(email);
+    }
 }

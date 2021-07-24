@@ -48,4 +48,9 @@ public class AuthController {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
     }
+
+    @GetMapping("/is_email_taken")
+    public ResponseEntity<Boolean> isEmailTaken(@RequestParam String email) {
+        return ResponseEntity.ok(authService.isEmailTaken(email));
+    }
 }
