@@ -13,12 +13,15 @@ import {environment} from "../environments/environment";
 })
 export class AppComponent implements OnInit {
 
+  public userId: string = "";
+
   constructor(public authService: AuthService,
               private router: Router) {
   }
 
   ngOnInit(): void {
     this.authService.ngOnInit();
+    this.userId = this.authService.getUserId();
   }
 
   public signOut(): void {

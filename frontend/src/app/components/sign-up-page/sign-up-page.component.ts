@@ -52,7 +52,7 @@ export class SignUpPageComponent implements OnInit {
     if (this.signUpFormGroup.valid) {
       this.buttonDisableState = true;
       this.authService.signUp(this.user).subscribe(authResponse => {
-        this.authService.redirectAfterAuth(authResponse.user.id);
+        this.authService.redirectToUserPage(authResponse.user.id);
       }, error => {
         this.buttonDisableState = false;
       });

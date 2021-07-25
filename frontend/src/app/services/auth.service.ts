@@ -22,15 +22,22 @@ export class AuthService implements OnInit {
     if (localStorage.getItem("NC_auth_header")) {
       this.isAuth = true;
       this.httpClient.get<AuthResponse>(`${environment.apiUrl}/auth/user_info`)
-        .subscribe(authResponse => this.isAuth = true, error => this.isAuth = false);
+        .subscribe(authResponse => {
+          this.isAuth = true;
+        }, error => {
+          this.isAuth = false;
+          localStorage.clear();
+        });
     } else {
       this.isAuth = false;
     }
   }
 
   // region private methods
-  private storeAuthHeader(email: string, password: string): void {
-    localStorage.setItem("NC_auth_header", "Basic " + btoa(email + ":" + password));
+  private storeUserInfo(authResponse: AuthResponse): void {
+    localStorage.setItem("NC_auth_header", "Basic " +
+      btoa(authResponse.user.email + ":" + this.encodePassword(authResponse.user.password)));
+    localStorage.setItem("NC_user_id", authResponse.user.id);
     this.isAuth = true;
   }
 
@@ -42,7 +49,8 @@ export class AuthService implements OnInit {
   public signUp(user: Client): Observable<AuthResponse> {
     return this.httpClient.post<AuthResponse>(`${environment.apiUrl}/auth/sign_up`, user)
       .pipe(map(authResponse => {
-        this.storeAuthHeader(user.email, this.encodePassword(user.password));
+        authResponse.user.password = user.password;
+        this.storeUserInfo(authResponse);
         return authResponse;
       }));
   }
@@ -50,13 +58,14 @@ export class AuthService implements OnInit {
   public signIn(credentials: Credentials): Observable<AuthResponse> {
     return this.httpClient.post<AuthResponse>(`${environment.apiUrl}/auth/sign_in`, credentials)
       .pipe(map(authResponse => {
-      this.storeAuthHeader(credentials.email, this.encodePassword(credentials.password));
-      return authResponse;
+        authResponse.user.password = credentials.password;
+        this.storeUserInfo(authResponse);
+        return authResponse;
     }));
   }
 
   public signOut(): void {
-    localStorage.removeItem("NC_auth_header");
+    localStorage.clear();
     this.isAuth = false;
   }
 
@@ -64,7 +73,11 @@ export class AuthService implements OnInit {
     return this.httpClient.get<boolean>(`${environment.apiUrl}/auth/is_email_taken?email=${email}`);
   }
 
-  public redirectAfterAuth(userId: string): void {
+  public redirectToUserPage(userId: string): void {
     this.router.navigateByUrl(`/users/${userId}`);
+  }
+
+  public getUserId(): string {
+    return localStorage.getItem("NC_user_id") || "";
   }
 }

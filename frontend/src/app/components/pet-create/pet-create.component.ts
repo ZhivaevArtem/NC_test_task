@@ -4,6 +4,7 @@ import {Sex} from "../../models/sex";
 import {UserService} from "../../services/user.service";
 import {ActivatedRoute} from "@angular/router";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-pet-create',
@@ -41,7 +42,8 @@ export class PetCreateComponent implements OnInit {
   });
 
   constructor(private userService: UserService,
-              private activatedRoute: ActivatedRoute) { }
+              private activatedRoute: ActivatedRoute,
+              private authService: AuthService) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
@@ -52,7 +54,12 @@ export class PetCreateComponent implements OnInit {
   public createPet(): void {
     this.userService.createPet(this.pet)
       .subscribe(pet => {
-        console.log(pet);
+        this.authService.redirectToUserPage(pet.ownerId);
+      }, error => {
+        this.pet = {
+          breed: "", animalType: "", name: "", sex: Sex.UNKNOWN,
+          ownerId: "", id: "", description: "", color: "", birth: new Date()
+        };
       });
   }
 }

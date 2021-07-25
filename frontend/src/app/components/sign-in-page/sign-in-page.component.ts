@@ -38,7 +38,7 @@ export class  SignInPageComponent implements OnInit {
       this.buttonDisabledState = true;
       this.authService.signIn(this.credentials)
         .subscribe(authResponse => {
-          this.authService.redirectAfterAuth(authResponse.user.id);
+          this.authService.redirectToUserPage(authResponse.user.id);
         }, error => {
           this.buttonDisabledState = false;
           this.credentials.password = "";

@@ -5,7 +5,7 @@
   <a *ngIf="!authService.isAuth" routerLink="sign_up" routerLinkActive="active" class="right">Sign Up</a>
 
   <button *ngIf="authService.isAuth" (click)="signOut()" class="right pointer">Log Out</button>
-<!--  <a *ngIf="authService.isAuth" routerLink="personal" routerLinkActive="active" class="right">Personal</a>-->
+  <a *ngIf="authService.isAuth" [routerLink]="['users', userId]" routerLinkActive="active" class="right">Personal</a>
 </nav>
 
 <router-outlet></router-outlet>
