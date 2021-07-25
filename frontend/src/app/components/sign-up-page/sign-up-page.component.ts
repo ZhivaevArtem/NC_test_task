@@ -52,7 +52,7 @@ export class SignUpPageComponent implements OnInit {
     if (this.signUpFormGroup.valid) {
       this.buttonDisableState = true;
       this.authService.signUp(this.user).subscribe(authResponse => {
-        this.router.navigate(["/"]);
+        this.authService.redirectAfterAuth(authResponse.user.id);
       }, error => {
         this.buttonDisableState = false;
       });
@@ -60,11 +60,12 @@ export class SignUpPageComponent implements OnInit {
   }
 
   public updateIsEmailTaken(): void {
-    console.log('update');
     this.authService.isEmailTaken(this.user.email)
       .subscribe(response => {
         this.isEmailTaken = response;
-        console.log(this.isEmailTaken);
+        this.signUpFormGroup.controls['email'].updateValueAndValidity();
+      }, error => {
+        this.isEmailTaken = false;
         this.signUpFormGroup.controls['email'].updateValueAndValidity();
       });
   }

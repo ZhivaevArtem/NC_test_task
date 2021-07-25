@@ -6,6 +6,7 @@ import {AuthResponse} from "../models/auth-response";
 import {map} from "rxjs/operators";
 import {environment} from "../../environments/environment";
 import {Credentials} from "../models/credentials";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -14,10 +15,17 @@ export class AuthService implements OnInit {
 
   public isAuth: boolean = false;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient,
+              private router: Router) { }
 
   ngOnInit(): void {
-    this.isAuth = !!localStorage.getItem("NC_auth_header");
+    if (localStorage.getItem("NC_auth_header")) {
+      this.isAuth = true;
+      this.httpClient.get<AuthResponse>(`${environment.apiUrl}/auth/user_info`)
+        .subscribe(authResponse => this.isAuth = true, error => this.isAuth = false);
+    } else {
+      this.isAuth = false;
+    }
   }
 
   // region private methods
@@ -54,5 +62,9 @@ export class AuthService implements OnInit {
 
   public isEmailTaken(email: string): Observable<boolean> {
     return this.httpClient.get<boolean>(`${environment.apiUrl}/auth/is_email_taken?email=${email}`);
+  }
+
+  public redirectAfterAuth(userId: string): void {
+    this.router.navigateByUrl(`/users/${userId}`);
   }
 }

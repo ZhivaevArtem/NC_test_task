@@ -1,0 +1,10 @@
+<div [style]="{width: 6 * 230 - 30 + 'px'}">
+  <div class="movies-row">
+    <div *ngFor="let j of [1, 2, 3, 4, 5, 6]" class="movie-container">
+      <app-pet-card *ngIf="j < pets.length" [pet]="pets[j]"></app-pet-card>
+    </div>
+    <div>
+      <app-pet-card-add></app-pet-card-add>
+    </div>
+  </div>
+</div>

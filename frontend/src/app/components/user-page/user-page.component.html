@@ -1,1 +1,14 @@
-<p>User page works</p>
+<div class="wrapper">
+  <div class="clear-fix user-info">
+    <img src="/src/assets/404.png">
+    <div class="username">{{user.name}} {{user.surname}} {{user.patronymic}}</div>
+    <div *ngIf="user.birth" class="misc">Birth: {{user.birth | date:'mediumDate'}}</div>
+    <div *ngIf="user.email" class="misc">Email: {{user.email}}</div>
+    <div *ngIf="user.phone" class="misc">Phone: {{user.phone}}</div>
+  </div>
+
+
+  <div class="movies">
+    <app-user-pets></app-user-pets>
+  </div>
+</div>

@@ -10,6 +10,9 @@ import {AuthHeaderInterceptor} from "./interceptors/auth-header.interceptor";
 import { SignInPageComponent } from './components/sign-in-page/sign-in-page.component';
 import { PetCardComponent } from './components/pet-card/pet-card.component';
 import { UserPageComponent } from './components/user-page/user-page.component';
+import { UserPetsComponent } from './components/user-pets/user-pets.component';
+import { PetCardAddComponent } from './components/pet-card-add/pet-card-add.component';
+import { PetCreateComponent } from './components/pet-create/pet-create.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +20,10 @@ import { UserPageComponent } from './components/user-page/user-page.component';
     SignUpPageComponent,
     SignInPageComponent,
     PetCardComponent,
-    UserPageComponent
+    UserPageComponent,
+    UserPetsComponent,
+    PetCardAddComponent,
+    PetCreateComponent
   ],
   imports: [
     BrowserModule,

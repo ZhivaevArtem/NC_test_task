@@ -1,0 +1,35 @@
+<form (ngSubmit)="createPet()" [formGroup]="petCreateFormGroup">
+  <label class="required">
+    Name
+    <input [(ngModel)]="pet.name" formControlName="name" placeholder="Name" type="text">
+  </label>
+  <label class="required">
+    Animal type
+    <input [(ngModel)]="pet.animalType" formControlName="animalType" placeholder="Animal type" type="text">
+  </label>
+  <label>
+    Breed
+    <input [(ngModel)]="pet.breed" formControlName="breed" placeholder="Breed" type="text">
+  </label>
+  <label>
+    Color
+    <input [(ngModel)]="pet.color" formControlName="color" placeholder="Color" type="text">
+  </label>
+  <label class="required">
+    Sex
+    <select [(ngModel)]="pet.sex" formControlName="sex">
+      <option value="MALE">Male</option>
+      <option value="FEMALE">Female</option>
+      <option value="OTHER">Other</option>
+    </select>
+  </label>
+  <label>
+    Birth
+    <input [(ngModel)]="pet.birth" formControlName="birth" placeholder="Birth" type="date">
+  </label>
+  <label>
+    Description
+    <textarea [(ngModel)]="pet.description" formControlName="description"></textarea>
+  </label>
+  <button type="submit">Sign up</button>
+</form>
