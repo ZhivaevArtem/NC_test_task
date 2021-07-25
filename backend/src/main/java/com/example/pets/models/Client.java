@@ -1,5 +1,6 @@
 package com.example.pets.models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.Date;
@@ -16,6 +17,7 @@ public class Client {
     private Date birth = new Date();
     private String address = "";
     private String phone = "";
+    @Column(unique = true)
     private String email = "";
     private String password = "";
 

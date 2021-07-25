@@ -17,15 +17,11 @@ public class AuthComponent {
     private ClientRepository clientRepository;
 
     public boolean checkUserIdAndEmail(String clientId, String email) {
-        System.out.println(clientId);
+//        System.out.println(clientId);
         Optional<Client> userOpt = clientRepository.findById(clientId);
         if (userOpt.isPresent()) {
             return email.equals(userOpt.get().getEmail());
         }
         return false;
-    }
-
-    public boolean check(HttpServletRequest httpServletRequest) {
-        return true;
     }
 }
