@@ -13,7 +13,7 @@ export class PetCardComponent implements OnInit {
   public pet: Pet = {
     name: "", animalType: "", birth: new Date(),
     breed: "", color: "", description: "", id: "",
-    ownerId: "", sex: Sex.UNKNOWN
+    ownerId: "", sex: Sex.UNKNOWN, picUrl: ""
   };
 
   constructor() { }

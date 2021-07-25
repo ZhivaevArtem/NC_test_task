@@ -16,7 +16,7 @@ export class SignUpPageComponent implements OnInit {
   public user: Client = {
     id: "", name: "", surname: "", patronymic: "",
     email: "", phone: "", password: "",
-    birth: new Date(), address: ""
+    birth: new Date(), address: "", picUrl: ""
   };
   public signUpFormGroup = new FormGroup({
     'email': new FormControl('', [

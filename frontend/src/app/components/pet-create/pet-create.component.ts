@@ -14,7 +14,7 @@ import {AuthService} from "../../services/auth.service";
 export class PetCreateComponent implements OnInit {
 
   public pet: Pet = {
-    breed: "", animalType: "", name: "", sex: Sex.UNKNOWN,
+    breed: "", animalType: "", name: "", sex: Sex.UNKNOWN, picUrl: "",
     ownerId: "", id: "", description: "", color: "", birth: new Date()
   };
   public petCreateFormGroup = new FormGroup({
@@ -52,14 +52,16 @@ export class PetCreateComponent implements OnInit {
   }
 
   public createPet(): void {
-    this.userService.createPet(this.pet)
-      .subscribe(pet => {
-        this.authService.redirectToUserPage(pet.ownerId);
-      }, error => {
-        this.pet = {
-          breed: "", animalType: "", name: "", sex: Sex.UNKNOWN,
-          ownerId: "", id: "", description: "", color: "", birth: new Date()
-        };
-      });
+    if (this.petCreateFormGroup.valid) {
+      this.userService.createPet(this.pet)
+        .subscribe(pet => {
+          this.authService.redirectToUserPage(pet.ownerId);
+        }, error => {
+          this.pet = {
+            breed: "", animalType: "", name: "", sex: Sex.UNKNOWN, picUrl: "",
+            ownerId: "", id: "", description: "", color: "", birth: new Date()
+          };
+        });
+    }
   }
 }

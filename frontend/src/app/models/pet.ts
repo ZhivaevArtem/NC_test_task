@@ -10,4 +10,6 @@ export interface Pet {
   description: string;
   animalType: string;
   ownerId: string;
+  // TODO: implement images
+  picUrl: string;
 }

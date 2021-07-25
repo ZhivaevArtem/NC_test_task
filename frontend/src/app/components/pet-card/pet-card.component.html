@@ -1,6 +1,6 @@
 <a [routerLink]="['pets', pet.id]" style="position:relative;">
   <div></div>
-  <img src="/src/assets/404.png">
+  <img [src]="pet.picUrl" (error)="pet.picUrl = 'assets/404.png'">
   <span class="name">{{pet.name}}</span>
   <span class="misc clear-fix">
     <span class="type left">{{pet.animalType}}</span>

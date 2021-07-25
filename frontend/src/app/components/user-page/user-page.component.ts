@@ -13,7 +13,7 @@ import {Pet} from "../../models/pet";
 export class UserPageComponent implements OnInit {
 
   public user: Client = {
-    id: "", name: "", surname: "", patronymic: "",
+    id: "", name: "", surname: "", patronymic: "", picUrl: "",
     email: "", phone: "", password: "", address: "", birth: new Date()
   };
   public pets: Pet[] = [];

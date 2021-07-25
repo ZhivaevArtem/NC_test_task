@@ -8,4 +8,6 @@ export interface Client {
   phone: string;
   email: string;
   password: string;
+  // TODO: implement images
+  picUrl: string;
 }

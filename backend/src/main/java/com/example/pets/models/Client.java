@@ -20,6 +20,7 @@ public class Client {
     @Column(unique = true)
     private String email = "";
     private String password = "";
+    private String picUrl = "";
 
     // region private methods
     private boolean validatePhone(String phone) {
@@ -51,6 +52,14 @@ public class Client {
     // endregion constructors
 
     // region getters and setters
+    public String getPicUrl() {
+        return picUrl;
+    }
+
+    public void setPicUrl(String picUrl) {
+        this.picUrl = picUrl;
+    }
+
     public String getId() {
         return id;
     }

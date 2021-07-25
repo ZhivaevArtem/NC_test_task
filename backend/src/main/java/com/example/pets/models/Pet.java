@@ -17,6 +17,7 @@ public class Pet {
     private String description = "";
     private String animalType = "";
     private String ownerId = "";
+    private String picUrl = "";
 
     // region constructors
     public Pet() {
@@ -37,6 +38,14 @@ public class Pet {
     // endregion constructors
 
     // region getters and setters
+    public String getPicUrl() {
+        return picUrl;
+    }
+
+    public void setPicUrl(String picUrl) {
+        this.picUrl = picUrl;
+    }
+
     public String getId() {
         return id;
     }
