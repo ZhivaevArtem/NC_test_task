@@ -23,4 +23,16 @@ export class UserService {
   public createPet(pet: Pet): Observable<Pet> {
     return this.httpClient.post<Pet>(`${environment.apiUrl}/client/${pet.ownerId}/pet`, pet);
   }
+
+  public updatePet(pet: Pet): Observable<Pet> {
+    return this.httpClient.put<Pet>(`${environment.apiUrl}/client/${pet.ownerId}/pet/${pet.id}`, pet);
+  }
+
+  public retrieveUserSinglePet(userId: string, petId: string): Observable<Pet> {
+    return this.httpClient.get<Pet>(`${environment.apiUrl}/client/${userId}/pet/${petId}`);
+  }
+
+  public deletePet(pet: Pet): Observable<Pet> {
+    return this.httpClient.delete<Pet>(`${environment.apiUrl}/client/${pet.ownerId}/pet/${pet.id}`);
+  }
 }

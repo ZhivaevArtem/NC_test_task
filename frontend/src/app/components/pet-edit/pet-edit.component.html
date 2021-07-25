@@ -1,4 +1,4 @@
-<form (ngSubmit)="createPet()" [formGroup]="petCreateFormGroup">
+<form (ngSubmit)="updatePet()" [formGroup]="petCreateFormGroup">
   <label class="required">
     Name
     <input [(ngModel)]="pet.name" formControlName="name" placeholder="Name" type="text">
@@ -31,5 +31,7 @@
     Description
     <textarea [(ngModel)]="pet.description" formControlName="description"></textarea>
   </label>
-  <button type="submit">Add pet</button>
+  <button type="submit">Save</button>
+  <button (click)="deletePet()" class="delete" type="button">Delete</button>
 </form>
+

@@ -121,12 +121,24 @@ public class ClientService {
             return Optional.empty();
         }
         Pet existingPet = petOpt.get();
-        Client client = clientOpt.get();
         if (!existingPet.getOwnerId().equals(clientId)) {
             return Optional.empty();
         }
         pet.setId(petId);
         pet.setOwnerId(clientId);
         return Optional.ofNullable(petRepository.save(pet));
+    }
+
+    public Optional<Pet> readClientSinglePet(String clientId, String petId) {
+        Optional<Pet> petOpt = petRepository.findById(petId);
+        Optional<Client> clientOpt = clientRepository.findById(clientId);
+        if (petOpt.isEmpty() || clientOpt.isEmpty()) {
+            return Optional.empty();
+        }
+        Pet existingPet = petOpt.get();
+        if (!existingPet.getOwnerId().equals(clientId)) {
+            return Optional.empty();
+        }
+        return Optional.of(existingPet);
     }
 }

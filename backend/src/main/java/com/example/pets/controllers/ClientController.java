@@ -80,7 +80,20 @@ public class ClientController {
         }
     }
 
+    @GetMapping("/{clientId}/pet/{petId}")
+    @PreAuthorize("@authComponent.checkUserIdAndEmail(#clientId, authentication.name)")
+    public ResponseEntity<Pet> readClientSinglePet(@PathVariable String clientId,
+                                                   @PathVariable String petId) {
+        Optional<Pet> petOpt = clientService.readClientSinglePet(clientId, petId);
+        if (petOpt.isPresent()) {
+            return ResponseEntity.ok(petOpt.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @PostMapping("/{clientId}/pet")
+    @PreAuthorize("@authComponent.checkUserIdAndEmail(#clientId, authentication.name)")
     public ResponseEntity<Pet> createAndAddPet(@PathVariable String clientId,
                                                @RequestBody Pet pet,
                                                Principal principal) {
@@ -93,6 +106,7 @@ public class ClientController {
     }
 
     @DeleteMapping("/{clientId}/pet/{petId}")
+    @PreAuthorize("@authComponent.checkUserIdAndEmail(#clientId, authentication.name)")
     public ResponseEntity<Pet> removeClientsPet(@PathVariable String clientId,
                                                 @PathVariable String petId,
                                                 Principal principal) {
@@ -105,6 +119,7 @@ public class ClientController {
     }
 
     @PutMapping("/{clientId}/pet/{petId}")
+    @PreAuthorize("@authComponent.checkUserIdAndEmail(#clientId, authentication.name)")
     public ResponseEntity<Pet> updateClientsPet(@PathVariable String clientId,
                                                 @PathVariable String petId,
                                                 @RequestBody Pet pet,

@@ -13,6 +13,7 @@ import { UserPageComponent } from './components/user-page/user-page.component';
 import { UserPetsComponent } from './components/user-pets/user-pets.component';
 import { PetCardAddComponent } from './components/pet-card-add/pet-card-add.component';
 import { PetCreateComponent } from './components/pet-create/pet-create.component';
+import { PetEditComponent } from './components/pet-edit/pet-edit.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { PetCreateComponent } from './components/pet-create/pet-create.component
     UserPageComponent,
     UserPetsComponent,
     PetCardAddComponent,
-    PetCreateComponent
+    PetCreateComponent,
+    PetEditComponent
   ],
   imports: [
     BrowserModule,
